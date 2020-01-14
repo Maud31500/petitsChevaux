@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Petits Chevaux</title>
+
+  <!-- Librairie jQuery -->
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <!--fontawesome-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <!--bootstrap-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!--css-->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1 class="d-none">Les petits chevaux : qui sera le premier ?</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-2 mx-auto">
+        <div id="dice">
+          <div class="scene">
+            <div class="cube">
+              <div class="cube__face cube__face--front">1</div>
+              <div class="cube__face cube__face--back">2</div>
+              <div class="cube__face cube__face--right">3</div>
+              <div class="cube__face cube__face--left">4</div>
+              <div class="cube__face cube__face--top">5</div>
+              <div class="cube__face cube__face--bottom">6</div>
+            </div>
+          </div>
+        </div>
+        <button id="roll" onclick="getDiceRollAndUpdatePawn()">Lancer</button>
+      </div>
+      <div class="col-8">
+        <table id="board" class="table table-bordered mx-auto my-5">
+          <!--1ère ligne-->
+          <tr>
+            <td colspan="4" rowspan="4" class="box-pawn">
+              <table id="table-pawn-blue" class="table-pawn table-borderless mx-auto my-2">
+                <tr>
+                  <td class="bg-primary pawn"></td>
+                  <td class="bg-primary pawn"></td>
+                </tr>
+                <tr>
+                  <td class="bg-primary pawn"></td>
+                  <td class="bg-primary pawn"></td>
+                </tr>
+              </table>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colspan="4" rowspan="4" class="box-pawn">
+              <table id="table-pawn-yellow" class="table-pawn table-borderless mx-auto my-2 my-2">
+                <tr>
+                  <td class="bg-warning pawn"></td>
+                  <td class="bg-warning pawn"></td>
+                </tr>
+                <tr>
+                  <td class="bg-warning pawn"></td>
+                  <td class="bg-warning pawn"></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!--2ème ligne-->
+          <tr>
+            <td class="star p-0 text-center"><i class="far fa-star"></i></td>
+            <td class="bg-warning pawn"></td>
+            <td class="bg-warning"></td>
+          </tr>
+          <!--3ème ligne-->
+          <tr>
+            <td></td>
+            <td class="bg-warning"></td>
+            <td></td>
+          </tr>
+          <!--4ème ligne-->
+          <tr>
+            <td></td>
+            <td class="bg-warning"></td>
+            <td></td>
+          </tr>
+          <!--5ème ligne-->
+          <tr>
+            <td></td>
+            <td class="bg-primary"></td>
+            <td></td>
+            <td></td>
+            <td colspan="3" rowspan="3" class="p-0">
+              <div id="triangle-blue"></div>
+              <div id="triangle-yellow"></div>
+              <div id="triangle-green"></div>
+              <div id="triangle-red"></div>
+            </td>
+            <td></td>
+            <td></td>
+            <td class="star p-0 text-center"><i class="far fa-star"></i></td>
+            <td></td>
+          </tr>
+          <!--6 ème ligne-->
+          <tr>
+            <td></td>
+            <td class="bg-primary pawn"></td>
+            <td class="bg-primary pawn"></td>
+            <td class="bg-primary pawn"></td>
+            <td class="bg-success pawn"></td>
+            <td class="bg-success pawn"></td>
+            <td class="bg-success pawn"></td>
+            <td></td>
+          </tr>
+          <!--7eme milieu-->
+          <tr>
+            <td></td>
+            <td class="star p-0 text-center"><i class="far fa-star"></i></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="bg-success"></td>
+            <td></td>
+          </tr>
+          <!--8ème ligne-->
+          <tr>
+            <td colspan="4" rowspan="4" class="box-pawn">
+              <table id="table-pawn-red" class="table-pawn table-borderless mx-auto my-2">
+                <tr>
+                  <td class="bg-danger"></td>
+                  <td class="bg-danger"></td>
+                </tr>
+                <tr>
+                  <td class="bg-danger"></td>
+                  <td class="bg-danger"></td>
+                </tr>
+              </table>
+            </td>
+            <td></td>
+            <td class="bg-danger"></td>
+            <td></td>
+            <td colspan="4" rowspan="4" class="box-pawn">
+              <table id="table-pawn-green" class="table-pawn table-borderless mx-auto my-2">
+                <tr>
+                  <td class="bg-success pawn"></td>
+                  <td class="bg-success"></td>
+                </tr>
+                <tr>
+                  <td class="bg-success"></td>
+                  <td class="bg-success"></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!--9ème ligne-->
+          <tr>
+            <td></td>
+            <td class="bg-danger"></td>
+            <td></td>
+          </tr>
+          <!--10ème ligne-->
+          <tr>
+            <td class="bg-danger"></td>
+            <td class="bg-danger"></td>
+            <td class="star p-0 text-center"><i class="far fa-star"></i></td>
+          </tr>
+          <!--11ème ligne-->
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src=""></script>
+  <script src=""></script>
+  <script src="brouillon.js"></script>
+</body>
+
+</html>
